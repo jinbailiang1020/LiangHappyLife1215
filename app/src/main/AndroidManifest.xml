@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.happy.jinbailiang.lianghappylife">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+
+
+        <service
+            android:name=".service.FloatViewService"
+            android:exported="true"
+            android:process="float_service.jin"
+            />
+        <!--android:isolatedProcess=["true" | "false"]    //如果设置为true，这个服务将运行在专门的进程中-->
+        <!--android:isolatedProcess="true"-->
+
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".WellComeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
