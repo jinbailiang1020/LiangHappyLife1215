@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.happy.jinbailiang.lianghappylife.service.FloatViewService;
+import com.happy.jinbailiang.lianghappylife.voice.VoiceMainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,12 +35,16 @@ public class MainActivity extends AppCompatActivity {
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
     @TargetApi(Build.VERSION_CODES.M)
     public void requestDrawOverLays() {
-        if (!Settings.canDrawOverlays(MainActivity.this)) {
-            Toast.makeText(this, "can not DrawOverlays", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + MainActivity.this.getPackageName()));
-            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-        } else {
-            // Already hold the SYSTEM_ALERT_WINDOW permission, do addview or something.
+        try {
+            if (!Settings.canDrawOverlays(MainActivity.this)) {
+                Toast.makeText(this, "can not DrawOverlays", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + MainActivity.this.getPackageName()));
+                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+            } else {
+                // Already hold the SYSTEM_ALERT_WINDOW permission, do addview or something.
+            }
+        }catch (NoSuchMethodError e){
+            e.printStackTrace();
         }
     }
 
@@ -117,5 +122,9 @@ public class MainActivity extends AppCompatActivity {
 //        goWhile = false;
         super.onDestroy();
 
+    }
+
+    public void toVoice(View view) {
+        startActivity(new Intent(this,VoiceMainActivity.class));
     }
 }
